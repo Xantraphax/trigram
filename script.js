@@ -1,5 +1,14 @@
+function normalizeText(text) {
+  // Entfernt Satzzeichen und wandelt alles in Kleinbuchstaben um
+  return text
+    .toLowerCase()
+    .replace(/[.,!?;:()"'„”]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function buildTrigrams(text) {
-  const words = text.split(/\s+/);
+  const words = normalizeText(text).split(' ');
   const trigrams = {};
 
   for (let i = 0; i < words.length - 2; i++) {
@@ -17,7 +26,8 @@ function buildTrigrams(text) {
 }
 
 function generateText(trigrams, start, maxWords = 50) {
-  const result = start.split(/\s+/);
+  const normalizedStart = normalizeText(start);
+  const result = normalizedStart.split(' ');
   if (result.length < 2) return 'Bitte gib zwei Startwörter ein.';
 
   for (let i = 0; i < maxWords; i++) {
@@ -33,6 +43,18 @@ function generateText(trigrams, start, maxWords = 50) {
   return result.join(' ');
 }
 
+function displayTrigrams(trigrams) {
+  const trigramList = document.getElementById('trigramList');
+  trigramList.innerHTML = '';
+
+  const entries = Object.entries(trigrams);
+  entries.forEach(([prefix, suffixes]) => {
+    const item = document.createElement('li');
+    item.textContent = `${prefix} → ${suffixes.join(', ')}`;
+    trigramList.appendChild(item);
+  });
+}
+
 document.getElementById('generateBtn').addEventListener('click', () => {
   const text = document.getElementById('inputText').value.trim();
   const start = document.getElementById('startWords').value.trim();
@@ -44,5 +66,6 @@ document.getElementById('generateBtn').addEventListener('click', () => {
 
   const trigrams = buildTrigrams(text);
   const generated = generateText(trigrams, start);
+  displayTrigrams(trigrams);
   document.getElementById('outputText').textContent = generated;
 });
