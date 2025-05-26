@@ -44,16 +44,26 @@ function generateText(trigrams, start, maxWords = 50) {
 }
 
 function displayTrigrams(trigrams) {
-  const trigramList = document.getElementById('trigramList');
-  trigramList.innerHTML = '';
+  const tableBody = document.querySelector('#trigramTable tbody');
+  tableBody.innerHTML = '';
 
-  const entries = Object.entries(trigrams);
+  const entries = Object.entries(trigrams).sort((a, b) => a[0].localeCompare(b[0]));
+
   entries.forEach(([prefix, suffixes]) => {
-    const item = document.createElement('li');
-    item.textContent = `${prefix} → ${suffixes.join(', ')}`;
-    trigramList.appendChild(item);
+    const row = document.createElement('tr');
+
+    const prefixCell = document.createElement('td');
+    prefixCell.textContent = prefix;
+
+    const suffixCell = document.createElement('td');
+    suffixCell.textContent = suffixes.join(', ');
+
+    row.appendChild(prefixCell);
+    row.appendChild(suffixCell);
+    tableBody.appendChild(row);
   });
 }
+
 
 document.getElementById('generateBtn').addEventListener('click', () => {
   const text = document.getElementById('inputText').value.trim();
