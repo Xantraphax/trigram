@@ -22,7 +22,7 @@ if (textFileParam) {
       if (autoMode) {
         cachedTrigrams = buildTrigrams(text);
         displayTrigrams(cachedTrigrams);
-        document.getElementById('outputText').textContent = 'Trigramme automatisch aus Datei erstellt.';
+        document.getElementById('startWords').placeholder = 'Trigramme geladen';
       }
     })
     .catch(error => {
@@ -125,7 +125,7 @@ document.getElementById('generateBtn').addEventListener('click', () => {
   }
 
   const generated = generateText(cachedTrigrams, start);
-  document.getElementById('outputText').textContent = generated;
+  document.getElementById('startWords').value = generated;
 });
 
 if (autoMode) {
@@ -142,7 +142,7 @@ if (autoMode) {
 
     cachedTrigrams = buildTrigrams(text);
     displayTrigrams(cachedTrigrams);
-    document.getElementById('outputText').textContent = 'Trigramme automatisch aktualisiert.';
+    document.getElementById('startWords').placeholder = 'Trigramme aktualisiert';
   });
 }
 
@@ -182,7 +182,7 @@ if (stepMode) {
       // Init
       startWords = document.getElementById('startWords').value.trim().toLowerCase();
       generatedWords = startWords.split(' ');
-      document.getElementById('outputText').textContent = generatedWords.join(' ');
+      document.getElementById('startWords').value = generatedWords.join(' ');
       currentStep = 0;
     }
 
@@ -209,7 +209,7 @@ if (stepMode) {
     } else if (currentStep === 2) {
       // Step 3: Wort hinzufügen
       generatedWords.push(selectedSuffix);
-      document.getElementById('outputText').textContent = generatedWords.join(' ');
+      document.getElementById('startWords').value = generatedWords.join(' ');
       clearHighlights();
       stepStatus.textContent = `✅ Schritt 3: Füge "${selectedSuffix}" zum Text hinzu`;
       currentStep = 0;
