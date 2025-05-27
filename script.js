@@ -266,16 +266,25 @@ function scrollIntoView(row) {
 }
 }
 
+const startWordsField = document.getElementById('startWords');
+
 function autoResizeTextarea(el) {
-  el.style.height = 'auto'; // Zurücksetzen
-  el.style.height = Math.min(el.scrollHeight, 200) + 'px'; // Max 200px
+  el.style.height = 'auto'; // Erst zurücksetzen
+  const scrollHeight = el.scrollHeight;
+  const maxHeight = 200;
+
+  el.style.height = Math.min(scrollHeight, maxHeight) + 'px';
+
+  // Wenn über max -> Scrollbar aktivieren
+  el.style.overflowY = scrollHeight > maxHeight ? 'auto' : 'hidden';
 }
 
-// Bei Eingabe automatisch anpassen
+// Bei jeder Eingabe
 startWordsField.addEventListener('input', () => autoResizeTextarea(startWordsField));
 
-// Auch initial einmal ausführen
+// Auch bei Start automatisch anpassen
 autoResizeTextarea(startWordsField);
+
 
 
 
