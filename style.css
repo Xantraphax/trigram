@@ -84,3 +84,15 @@ th {
   background-color: #ffeaa7;
 }
 
+#startWords {
+  width: 100%;
+  min-height: 1.5em;
+  max-height: 200px;
+  overflow-y: auto;
+  resize: none;
+  box-sizing: border-box;
+  padding: 8px;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
