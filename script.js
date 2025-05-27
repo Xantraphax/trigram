@@ -127,6 +127,8 @@ document.getElementById('generateBtn').addEventListener('click', () => {
 
   const generated = generateText(cachedTrigrams, start);
   document.getElementById('startWords').value = generated;
+
+  autoResizeTextarea(startWordsField);
 });
 
 if (autoMode) {
@@ -211,6 +213,7 @@ if (stepMode) {
       // Step 3: Wort hinzufügen
       generatedWords.push(selectedSuffix);
       document.getElementById('startWords').value = generatedWords.join(' ');
+      autoResizeTextarea(startWordsField);
       clearHighlights();
       stepStatus.textContent = `✅ Schritt 3: Füge "${selectedSuffix}" zum Text hinzu`;
       currentStep = 0;
