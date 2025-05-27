@@ -1,11 +1,11 @@
 function normalizeText(text) {
-  // Entfernt Satzzeichen und wandelt alles in Kleinbuchstaben um
+  // Nur in Kleinbuchstaben umwandeln, Satzzeichen bleiben erhalten
   return text
     .toLowerCase()
-    .replace(/[.,!?;:()"'„”]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 }
+
 
 function buildTrigrams(text) {
   const words = normalizeText(text).split(' ');
