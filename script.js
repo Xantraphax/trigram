@@ -269,7 +269,6 @@ function scrollIntoView(row) {
 }
 }
 
-const startWordsField = document.getElementById('startWords');
 
 function autoResizeTextarea(el) {
   el.style.height = 'auto'; // Erst zurücksetzen
