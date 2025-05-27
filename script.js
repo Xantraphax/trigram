@@ -1,7 +1,7 @@
 // URL-Parameter auslesen
 const urlParams = new URLSearchParams(window.location.search);
 const autoMode = urlParams.get('auto') === 'true';
-const showButton = urlParams.get('button') === 'false';
+const showButton = urlParams.get('button');
 
 function normalizeText(text) {
   // Nur in Kleinbuchstaben umwandeln, Satzzeichen bleiben erhalten
@@ -118,6 +118,13 @@ if (autoMode) {
   });
 }
 
-if (showButton) {
+if (showButton === 'none') {
+  document.getElementById('buildBtn').style.display = 'none';
+  document.getElementById('generateBtn').style.display = 'none';
+}
+else if (showButton === 'tri'){
+  document.getElementById('generateBtn').style.display = 'none';
+}
+else if (showButton === 'gen'){
   document.getElementById('buildBtn').style.display = 'none';
 }
