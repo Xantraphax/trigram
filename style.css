@@ -60,3 +60,14 @@ th, td {
 th {
   background-color: #f0f0f0;
 }
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button-row button {
+  flex: 1;
+}
+
