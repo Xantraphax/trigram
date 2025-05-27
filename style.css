@@ -71,3 +71,12 @@ th {
   flex: 1;
 }
 
+.trigram-container {
+  max-height: 300px; /* Höhe des sichtbaren Fensters */
+  overflow-y: auto;  /* vertikales Scrollen aktivieren */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #f9f9f9;
+  margin-top: 1rem;
+}
+
