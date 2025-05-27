@@ -189,42 +189,55 @@ if (stepMode) {
     }
   });
 
-  function highlightPrefix(prefix) {
+   function highlightPrefix(prefix) {
     const rows = document.querySelectorAll('#trigramTable tbody tr');
     tableRows = rows;
     rows.forEach(row => {
       if (row.children[0].textContent === prefix) {
         row.classList.add('highlight');
+        scrollIntoView(row);
       }
     });
   }
+
 
   function highlightSuffix(prefix, suffix) {
     const rows = document.querySelectorAll('#trigramTable tbody tr');
     rows.forEach(row => {
       if (row.children[0].textContent === prefix) {
         const suffixCell = row.children[1];
-        const parts = suffixCell.textContent.split(',').map(s => s.trim());
-        suffixCell.innerHTML = parts.map(word => {
-          return word === suffix ? `<span class="highlight">${word}</span>` : word;
-        }).join(', ');
+        suffixCell.classList.add('highlight');
+        scrollIntoView(row);
       }
     });
   }
+
 
   function clearHighlights() {
-    document.querySelectorAll('.highlight').forEach(el => {
-      el.classList.remove('highlight');
-    });
+  document.querySelectorAll('.highlight').forEach(el => {
+    el.classList.remove('highlight');
+  });
 
-    // Reset Suffixzelle ohne Markup
-    tableRows.forEach(row => {
-      const prefix = row.children[0].textContent;
-      const suffixes = cachedTrigrams[prefix];
-      if (suffixes) {
-        row.children[1].textContent = suffixes.join(', ');
-      }
-    });
-  }
+  // Reset Inhalt aller Suffixzellen
+  tableRows.forEach(row => {
+    const prefix = row.children[0].textContent;
+    const suffixes = cachedTrigrams[prefix];
+    if (suffixes) {
+      row.children[1].textContent = suffixes.join(', ');
+    }
+  });
 }
+  
+function scrollIntoView(row) {
+  const container = document.querySelector('.trigram-container');
+  const offsetTop = row.offsetTop;
+  container.scrollTo({
+    top: offsetTop - container.offsetHeight / 2,
+    behavior: 'smooth'
+  });
+}
+}
+
+
+
 
