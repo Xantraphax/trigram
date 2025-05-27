@@ -2,6 +2,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const autoMode = urlParams.get('auto') === 'true';
 const showButton = urlParams.get('button');
+const stepMode = urlParams.get('step') === 'true';
 
 function normalizeText(text) {
   // Nur in Kleinbuchstaben umwandeln, Satzzeichen bleiben erhalten
@@ -128,3 +129,102 @@ else if (showButton === 'tri'){
 else if (showButton === 'gen'){
   document.getElementById('buildBtn').style.display = 'none';
 }
+
+// Schrittweise Animation der Textgenerierung
+if (stepMode) {
+  document.getElementById('stepControls').style.display = 'block';
+
+  let currentPrefix = '';
+  let currentStep = 0;
+  let generatedWords = [];
+  let tableRows = [];
+  let suffixOptions = [];
+  let selectedSuffix = '';
+  let startWords = '';
+
+  const stepStatus = document.getElementById('stepStatus');
+  const stepBtn = document.getElementById('stepBtn');
+
+  stepBtn.addEventListener('click', () => {
+    if (Object.keys(cachedTrigrams).length === 0) {
+      alert('Bitte gib Text ein und erstelle Trigramme.');
+      return;
+    }
+
+    if (generatedWords.length < 2) {
+      // Init
+      startWords = document.getElementById('startWords').value.trim().toLowerCase();
+      generatedWords = startWords.split(' ');
+      document.getElementById('outputText').textContent = generatedWords.join(' ');
+      currentStep = 0;
+    }
+
+    const prefix = generatedWords.slice(-2).join(' ');
+    clearHighlights();
+
+    if (currentStep === 0) {
+      // Step 1: Prefix suchen & highlighten
+      currentPrefix = prefix;
+      highlightPrefix(prefix);
+      stepStatus.textContent = `🔍 Schritt 1: Suche Präfix "${prefix}" in der Tabelle`;
+      currentStep++;
+    } else if (currentStep === 1) {
+      // Step 2: Suffix bestimmen
+      suffixOptions = cachedTrigrams[currentPrefix] || [];
+      if (suffixOptions.length === 0) {
+        stepStatus.textContent = `❌ Keine Suffixe für Präfix "${currentPrefix}" gefunden.`;
+        return;
+      }
+      selectedSuffix = suffixOptions[Math.floor(Math.random() * suffixOptions.length)];
+      highlightSuffix(currentPrefix, selectedSuffix);
+      stepStatus.textContent = `🎯 Schritt 2: Wähle zufälliges Suffix "${selectedSuffix}"`;
+      currentStep++;
+    } else if (currentStep === 2) {
+      // Step 3: Wort hinzufügen
+      generatedWords.push(selectedSuffix);
+      document.getElementById('outputText').textContent = generatedWords.join(' ');
+      clearHighlights();
+      stepStatus.textContent = `✅ Schritt 3: Füge "${selectedSuffix}" zum Text hinzu`;
+      currentStep = 0;
+    }
+  });
+
+  function highlightPrefix(prefix) {
+    const rows = document.querySelectorAll('#trigramTable tbody tr');
+    tableRows = rows;
+    rows.forEach(row => {
+      if (row.children[0].textContent === prefix) {
+        row.classList.add('highlight');
+      }
+    });
+  }
+
+  function highlightSuffix(prefix, suffix) {
+    const rows = document.querySelectorAll('#trigramTable tbody tr');
+    rows.forEach(row => {
+      if (row.children[0].textContent === prefix) {
+        const suffixCell = row.children[1];
+        const parts = suffixCell.textContent.split(',').map(s => s.trim());
+        suffixCell.innerHTML = parts.map(word => {
+          return word === suffix ? `<span class="highlight">${word}</span>` : word;
+        }).join(', ');
+      }
+    });
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('.highlight').forEach(el => {
+      el.classList.remove('highlight');
+    });
+
+    // Reset Suffixzelle ohne Markup
+    tableRows.forEach(row => {
+      const prefix = row.children[0].textContent;
+      const suffixes = cachedTrigrams[prefix];
+      if (suffixes) {
+        row.children[1].textContent = suffixes.join(', ');
+      }
+    });
+  }
+}
+
