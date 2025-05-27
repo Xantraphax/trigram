@@ -1,3 +1,4 @@
+const startWordsField = document.getElementById('startWords');
 // URL-Parameter auslesen
 const urlParams = new URLSearchParams(window.location.search);
 const autoMode = urlParams.get('auto') === 'true';
@@ -265,6 +266,16 @@ function scrollIntoView(row) {
 }
 }
 
+function autoResizeTextarea(el) {
+  el.style.height = 'auto'; // Zurücksetzen
+  el.style.height = Math.min(el.scrollHeight, 200) + 'px'; // Max 200px
+}
+
+// Bei Eingabe automatisch anpassen
+startWordsField.addEventListener('input', () => autoResizeTextarea(startWordsField));
+
+// Auch initial einmal ausführen
+autoResizeTextarea(startWordsField);
 
 
 
