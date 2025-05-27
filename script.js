@@ -3,9 +3,36 @@ const urlParams = new URLSearchParams(window.location.search);
 const autoMode = urlParams.get('auto') === 'true';
 const showButton = urlParams.get('button');
 const stepMode = urlParams.get('step') === 'true';
+const textFileParam = urlParams.get('textfile');
 
+//Ausgangstext aus Textdatei laden
+if (textFileParam) {
+  fetch(textFileParam)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Fehler beim Laden der Datei: ${response.statusText}`);
+      }
+      return response.text();
+    })
+    .then(text => {
+      const inputField = document.getElementById('inputText');
+      inputField.value = text;
+
+      // Wenn auto=true aktiviert ist, direkt Trigramme erzeugen
+      if (autoMode) {
+        cachedTrigrams = buildTrigrams(text);
+        displayTrigrams(cachedTrigrams);
+        document.getElementById('outputText').textContent = 'Trigramme automatisch aus Datei erstellt.';
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert('Fehler beim Laden der Textdatei.');
+    });
+}
+
+//Text in Kleinbuchstaben umwandeln, Satzzeichen bleiben erhalten
 function normalizeText(text) {
-  // Nur in Kleinbuchstaben umwandeln, Satzzeichen bleiben erhalten
   return text
     .toLowerCase()
     .replace(/\s+/g, ' ')
