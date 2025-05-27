@@ -65,17 +65,33 @@ function displayTrigrams(trigrams) {
 }
 
 
-document.getElementById('generateBtn').addEventListener('click', () => {
-  const text = document.getElementById('inputText').value.trim();
-  const start = document.getElementById('startWords').value.trim();
+let cachedTrigrams = {};
 
-  if (text.length === 0 || start.length === 0) {
-    alert('Bitte gib sowohl den Text als auch Startwörter ein.');
+document.getElementById('buildBtn').addEventListener('click', () => {
+  const text = document.getElementById('inputText').value.trim();
+  if (text.length === 0) {
+    alert('Bitte gib einen Text ein.');
     return;
   }
 
-  const trigrams = buildTrigrams(text);
-  const generated = generateText(trigrams, start);
-  displayTrigrams(trigrams);
+  cachedTrigrams = buildTrigrams(text);
+  displayTrigrams(cachedTrigrams);
+  document.getElementById('outputText').textContent = 'Trigramme erstellt. Du kannst jetzt Text generieren.';
+});
+
+document.getElementById('generateBtn').addEventListener('click', () => {
+  const start = document.getElementById('startWords').value.trim();
+  if (!cachedTrigrams || Object.keys(cachedTrigrams).length === 0) {
+    alert('Bitte erst Trigramme erstellen.');
+    return;
+  }
+
+  if (start.length === 0) {
+    alert('Bitte gib zwei Startwörter ein.');
+    return;
+  }
+
+  const generated = generateText(cachedTrigrams, start);
   document.getElementById('outputText').textContent = generated;
 });
+
