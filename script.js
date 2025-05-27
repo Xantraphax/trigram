@@ -1,3 +1,8 @@
+// URL-Parameter auslesen
+const urlParams = new URLSearchParams(window.location.search);
+const autoMode = urlParams.get('auto') === 'true';
+const showButton = urlParams.get('button') === 'false';
+
 function normalizeText(text) {
   // Nur in Kleinbuchstaben umwandeln, Satzzeichen bleiben erhalten
   return text
@@ -95,3 +100,24 @@ document.getElementById('generateBtn').addEventListener('click', () => {
   document.getElementById('outputText').textContent = generated;
 });
 
+if (autoMode) {
+  const inputField = document.getElementById('inputText');
+
+  inputField.addEventListener('input', () => {
+    const text = inputField.value.trim();
+    if (text.length === 0) {
+      cachedTrigrams = {};
+      document.querySelector('#trigramTable tbody').innerHTML = '';
+      document.getElementById('outputText').textContent = '';
+      return;
+    }
+
+    cachedTrigrams = buildTrigrams(text);
+    displayTrigrams(cachedTrigrams);
+    document.getElementById('outputText').textContent = 'Trigramme automatisch aktualisiert.';
+  });
+}
+
+if (showButton) {
+  document.getElementById('buildBtn').style.display = 'none';
+}
