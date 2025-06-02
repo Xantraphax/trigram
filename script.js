@@ -5,7 +5,9 @@ const autoMode = urlParams.get('auto') === 'true';
 const showButton = urlParams.get('button');
 const stepMode = urlParams.get('step') === 'true';
 const textFileParam = urlParams.get('textfile');
-const output = urlParams.get('output') === 'false';
+const output = urlParams.get('output');
+const output = urlParams.get('input');
+const output = urlParams.get('trigramme');
 
 //Ausgangstext aus Textdatei laden
 if (textFileParam) {
@@ -149,9 +151,38 @@ if (autoMode) {
     document.getElementById('startWords').placeholder = 'Trigramme aktualisiert';
   });
 }
-if (output) {
+
+if (output === 'none') {
   document.getElementById('outputTextDetails').style.display = 'none';
 }
+else if (output === 'open'){
+  document.getElementById('outputTextDetails').open = true;
+}
+else {
+  document.getElementById('outputTextDetails').open = false;
+}
+
+if (input === 'none') {
+  document.getElementById('inputTextDetails').style.display = 'none';
+}
+else if (input === 'open'){
+  document.getElementById('inputTextDetails').open = true;
+}
+else {
+  document.getElementById('inputTextDetails').open = false;
+}
+
+if (trigramme === 'none') {
+  document.getElementById('trigrammeDetails').style.display = 'none';
+}
+else if (trigramme === 'open'){
+  document.getElementById('trigrammeDetails').open = true;
+}
+else {
+  document.getElementById('trigrammeDetails').open = false;
+}
+  
+  
   
 if (showButton === 'none') {
   document.getElementById('buildBtn').style.display = 'none';
