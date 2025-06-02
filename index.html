@@ -9,11 +9,14 @@
 <body>
   <div class="container">
     <h1>Trigramm-Textgenerator</h1>
-    <details name="inputTextDetails" open>
+    <details id="inputTextDetails" open>
       <summary>Trainingstext</summary>
       <textarea id="inputText" placeholder="Gib hier deinen Ausgangstext ein..."></textarea>
     </details>
-    <textarea id="startWords" rows="1" placeholder="Zwei Startwörter"></textarea>
+    <details id="outputTextDetails" open>
+      <h1>Ausgabetext</h1>
+      <textarea id="startWords" rows="1" placeholder="Zwei Startwörter"></textarea>
+    </details>
     <div class="button-row">
       <button id="buildBtn">Trigramme erstellen</button>
       <button id="generateBtn">Text generieren</button>
