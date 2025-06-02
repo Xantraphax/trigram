@@ -209,6 +209,7 @@ if (stepMode) {
 
   const stepStatus = document.getElementById('stepStatus');
   const stepBtn = document.getElementById('stepBtn');
+  const startWordsField = document.getElementById('startWords');
 
   stepBtn.addEventListener('click', () => {
     if (Object.keys(cachedTrigrams).length === 0) {
@@ -217,10 +218,17 @@ if (stepMode) {
     }
 
     if (generatedWords.length < 2) {
-      // Init
-      startWords = document.getElementById('startWords').value.trim().toLowerCase();
-      generatedWords = startWords.split(' ');
-      document.getElementById('startWords').value = generatedWords.join(' ');
+      // Initialisierung
+      startWords = startWordsField.value.trim().toLowerCase();
+      generatedWords = startWords.split(/\s+/);
+
+      if (generatedWords.length < 2) {
+        alert('Bitte gib mindestens zwei Startwörter ein.');
+        generatedWords = []; // zurücksetzen, falls vorher was drin war
+        return;
+      }
+
+      startWordsField.value = generatedWords.join(' ');
       currentStep = 0;
     }
 
@@ -228,13 +236,13 @@ if (stepMode) {
     clearHighlights();
 
     if (currentStep === 0) {
-      // Step 1: Prefix suchen & highlighten
+      // Schritt 1: Präfix suchen
       currentPrefix = prefix;
       highlightPrefix(prefix);
       stepStatus.textContent = `🔍 Schritt 1: Suche Präfix "${prefix}" in der Tabelle`;
       currentStep++;
     } else if (currentStep === 1) {
-      // Step 2: Suffix bestimmen
+      // Schritt 2: Suffix bestimmen
       suffixOptions = cachedTrigrams[currentPrefix] || [];
       if (suffixOptions.length === 0) {
         stepStatus.textContent = `❌ Keine Suffixe für Präfix "${currentPrefix}" gefunden.`;
@@ -245,15 +253,17 @@ if (stepMode) {
       stepStatus.textContent = `🎯 Schritt 2: Wähle zufälliges Suffix "${selectedSuffix}"`;
       currentStep++;
     } else if (currentStep === 2) {
-      // Step 3: Wort hinzufügen
+      // Schritt 3: Wort hinzufügen
       generatedWords.push(selectedSuffix);
-      document.getElementById('startWords').value = generatedWords.join(' ');
+      startWordsField.value = generatedWords.join(' ');
       autoResizeTextarea(startWordsField);
       clearHighlights();
       stepStatus.textContent = `✅ Schritt 3: Füge "${selectedSuffix}" zum Text hinzu`;
       currentStep = 0;
     }
   });
+}
+
 
    function highlightPrefix(prefix) {
     const rows = document.querySelectorAll('#trigramTable tbody tr');
