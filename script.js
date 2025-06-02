@@ -150,7 +150,7 @@ if (autoMode) {
   });
 }
 if (output) {
-  document.getElementById('startWords').style.display = 'none';
+  document.getElementById('outputTextDetails').style.display = 'none';
 }
   
 if (showButton === 'none') {
