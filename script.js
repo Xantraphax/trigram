@@ -8,12 +8,6 @@ const textFileParam = urlParams.get('textfile');
 const output = urlParams.get('output');
 const input = urlParams.get('input');
 const trigramme = urlParams.get('trigramme');
-const layoutParam = urlParams.get('layout'); // z.B. layout=flex oder layout=stack
-
-if (layoutParam === 'flex') {
-  document.getElementById('layoutWrapper').classList.add('flex');
-}
-
 
 //Ausgangstext aus Textdatei laden
 if (textFileParam) {
