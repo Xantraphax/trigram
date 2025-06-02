@@ -96,3 +96,20 @@ th {
   display: block;
 }
 
+#layoutWrapper.flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#layoutWrapper.flex > * {
+  flex: 1 1 calc(50% - 0.5rem);
+  box-sizing: border-box;
+  min-width: 300px; /* Verhindert, dass es zu schmal wird */
+}
+
+@media (max-width: 650px) {
+  #layoutWrapper.flex > * {
+    flex-basis: 100%;
+  }
+}
