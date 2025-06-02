@@ -89,7 +89,6 @@ th {
   min-height: 1.5em;
   max-height: 200px;
   overflow-y: auto;
-  resize: none;
   box-sizing: border-box;
   padding: 8px;
   font-size: 1em;
