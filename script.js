@@ -224,7 +224,7 @@ if (stepMode) {
 
       if (generatedWords.length < 2) {
         alert('Bitte gib mindestens zwei Startwörter ein.');
-        generatedWords = []; // zurücksetzen, falls vorher was drin war
+        generatedWords = []; // zurücksetzen für nächste Eingabe
         return;
       }
 
@@ -236,7 +236,7 @@ if (stepMode) {
     clearHighlights();
 
     if (currentStep === 0) {
-      // Schritt 1: Präfix suchen
+      // Schritt 1: Präfix suchen & highlighten
       currentPrefix = prefix;
       highlightPrefix(prefix);
       stepStatus.textContent = `🔍 Schritt 1: Suche Präfix "${prefix}" in der Tabelle`;
@@ -262,10 +262,8 @@ if (stepMode) {
       currentStep = 0;
     }
   });
-}
 
-
-   function highlightPrefix(prefix) {
+  function highlightPrefix(prefix) {
     const rows = document.querySelectorAll('#trigramTable tbody tr');
     tableRows = rows;
     rows.forEach(row => {
@@ -275,7 +273,6 @@ if (stepMode) {
       }
     });
   }
-
 
   function highlightSuffix(prefix, suffix) {
     const rows = document.querySelectorAll('#trigramTable tbody tr');
@@ -288,31 +285,31 @@ if (stepMode) {
     });
   }
 
-
   function clearHighlights() {
-  document.querySelectorAll('.highlight').forEach(el => {
-    el.classList.remove('highlight');
-  });
+    document.querySelectorAll('.highlight').forEach(el => {
+      el.classList.remove('highlight');
+    });
 
-  // Reset Inhalt aller Suffixzellen
-  tableRows.forEach(row => {
-    const prefix = row.children[0].textContent;
-    const suffixes = cachedTrigrams[prefix];
-    if (suffixes) {
-      row.children[1].textContent = suffixes.join(', ');
-    }
-  });
+    // Reset Inhalt aller Suffixzellen
+    tableRows.forEach(row => {
+      const prefix = row.children[0].textContent;
+      const suffixes = cachedTrigrams[prefix];
+      if (suffixes) {
+        row.children[1].textContent = suffixes.join(', ');
+      }
+    });
+  }
+
+  function scrollIntoView(row) {
+    const container = document.querySelector('.trigram-container');
+    const offsetTop = row.offsetTop;
+    container.scrollTo({
+      top: offsetTop - container.offsetHeight / 2,
+      behavior: 'smooth'
+    });
+  }
 }
-  
-function scrollIntoView(row) {
-  const container = document.querySelector('.trigram-container');
-  const offsetTop = row.offsetTop;
-  container.scrollTo({
-    top: offsetTop - container.offsetHeight / 2,
-    behavior: 'smooth'
-  });
-}
-}
+
 
 
 function autoResizeTextarea(el) {
@@ -331,7 +328,3 @@ startWordsField.addEventListener('input', () => autoResizeTextarea(startWordsFie
 
 // Auch bei Start automatisch anpassen
 autoResizeTextarea(startWordsField);
-
-
-
-
