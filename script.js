@@ -5,6 +5,7 @@ const autoMode = urlParams.get('auto') === 'true';
 const showButton = urlParams.get('button');
 const stepMode = urlParams.get('step') === 'true';
 const textFileParam = urlParams.get('textfile');
+const output = urlParams.get('output') === 'false';
 
 //Ausgangstext aus Textdatei laden
 if (textFileParam) {
@@ -148,7 +149,10 @@ if (autoMode) {
     document.getElementById('startWords').placeholder = 'Trigramme aktualisiert';
   });
 }
-
+if (output) {
+  document.getElementById('startWords').style.display = 'none';
+}
+  
 if (showButton === 'none') {
   document.getElementById('buildBtn').style.display = 'none';
   document.getElementById('generateBtn').style.display = 'none';
