@@ -6,8 +6,8 @@ const showButton = urlParams.get('button');
 const stepMode = urlParams.get('step') === 'true';
 const textFileParam = urlParams.get('textfile');
 const output = urlParams.get('output');
-const output = urlParams.get('input');
-const output = urlParams.get('trigramme');
+const input = urlParams.get('input');
+const trigramme = urlParams.get('trigramme');
 
 //Ausgangstext aus Textdatei laden
 if (textFileParam) {
