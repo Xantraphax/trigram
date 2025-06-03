@@ -57,11 +57,14 @@ button:hover {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
+  align-items: stretch; /* NEU: gleiche Höhe */
 }
 
 .output-trigram-wrapper .half {
   flex: 1 1 45%;
   min-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .trigram-container {
@@ -94,8 +97,9 @@ th {
 }
 
 #startWords {
+  flex-grow: 1; /* NEU: füllt parent aus */
   width: 100%;
-  min-height: 1.5em;
+  min-height: 0;
   max-height: 200px;
   overflow-y: auto;
   box-sizing: border-box;
