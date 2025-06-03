@@ -7,45 +7,50 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Trigramm-Textgenerator</h1>
-    <details id="inputTextDetails">
-      <summary>Trainingstext</summary>
-      <br>
-      <textarea id="inputText" placeholder="Gib hier deinen Ausgangstext ein..."></textarea>
-    </details>
-    <details id="outputTextDetails">
+<div class="container">
+  <h1>Trigramm-Textgenerator</h1>
+
+  <details id="inputTextDetails" open>
+    <summary>Trainingstext</summary>
+    <br>
+    <textarea id="inputText" placeholder="Gib hier deinen Ausgangstext ein..." rows="6"></textarea>
+  </details>
+
+  <div class="output-trigram-row">
+    <details id="outputTextDetails" open style="flex: 0 0 40%;">
       <summary>Ausgabetext</summary>
       <br>
-      <textarea id="startWords" rows="1" placeholder="Zwei Startwörter"></textarea>
-    </details>
-    <br>
-    <div class="button-row">
-      <button id="buildBtn">Trigramme erstellen</button>
-      <button id="generateBtn">Text generieren</button>
-    </div>
-    <div id="stepControls" style="display: none; margin-top: 1rem;">
-      <button id="stepBtn">Nächster Schritt</button>
-      <p id="stepStatus" style="font-weight: bold; margin-top: 0.5rem;"></p>
-    </div>
-    <details id="trigrammeDetails">
-    <summary>Trigramme</summary>
-    <br>
-    <div class="trigram-container">
-      <table id="trigramTable">
-        <thead>
-          <tr>
-            <th>Präfix (2 Wörter)</th>
-            <th>Mögliche Suffixe</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+      <textarea id="startWords" rows="3" placeholder="Zwei Startwörter"></textarea>
     </details>
 
-
+    <details id="trigrammeDetails" open style="flex: 1;">
+      <summary>Trigramme</summary>
+      <br>
+      <div class="trigram-container">
+        <table id="trigramTable">
+          <thead>
+            <tr>
+              <th>Präfix (2 Wörter)</th>
+              <th>Mögliche Suffixe</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </details>
   </div>
+
+  <div class="button-row">
+    <button id="buildBtn">Trigramme erstellen</button>
+    <button id="generateBtn">Text generieren</button>
+  </div>
+
+  <div id="stepControls" style="display: none; margin-top: 1rem;">
+    <button id="stepBtn">Nächster Schritt</button>
+    <p id="stepStatus" style="font-weight: bold; margin-top: 0.5rem;"></p>
+  </div>
+</div>
+
   <script src="script.js"></script>
 </body>
 </html>
