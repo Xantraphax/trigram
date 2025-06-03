@@ -9,56 +9,43 @@
 <body>
   <div class="container">
     <h1>Trigramm-Textgenerator</h1>
-
     <details id="inputTextDetails">
       <summary>Trainingstext</summary>
-      <br />
+      <br>
       <textarea id="inputText" placeholder="Gib hier deinen Ausgangstext ein..."></textarea>
     </details>
-
-    <div class="output-trigram-wrapper">
-      <!-- Ausgabetext -->
-      <div class="half">
-        <details id="outputTextDetails">
-          <summary>Ausgabetext</summary>
-          <div class="details-body">
-            <textarea id="startWords" placeholder="Zwei Startwörter"></textarea>
-          </div>
-        </details>
-      </div>
-
-      <!-- Trigramme -->
-      <div class="half">
-        <details id="trigrammeDetails">
-          <summary>Trigramme</summary>
-          <div class="details-body trigram-body">
-            <div class="trigram-container">
-              <table id="trigramTable">
-                <thead>
-                  <tr>
-                    <th>Präfix (2 Wörter)</th>
-                    <th>Mögliche Suffixe</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
-
+    <details id="outputTextDetails">
+      <summary>Ausgabetext</summary>
+      <br>
+      <textarea id="startWords" rows="1" placeholder="Zwei Startwörter"></textarea>
+    </details>
+    <br>
     <div class="button-row">
       <button id="buildBtn">Trigramme erstellen</button>
       <button id="generateBtn">Text generieren</button>
     </div>
-
     <div id="stepControls" style="display: none; margin-top: 1rem;">
       <button id="stepBtn">Nächster Schritt</button>
       <p id="stepStatus" style="font-weight: bold; margin-top: 0.5rem;"></p>
     </div>
-  </div>
+    <details id="trigrammeDetails">
+    <summary>Trigramme</summary>
+    <br>
+    <div class="trigram-container">
+      <table id="trigramTable">
+        <thead>
+          <tr>
+            <th>Präfix (2 Wörter)</th>
+            <th>Mögliche Suffixe</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    </details>
 
+
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
