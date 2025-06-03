@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-  max-width: 700px;
+  max-width: 1200px;
   margin: auto;
   background: white;
   padding: 2rem;
@@ -22,6 +22,7 @@ textarea, input {
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: vertical;
+  box-sizing: border-box;
 }
 
 button {
@@ -38,11 +39,38 @@ button:hover {
   background-color: #005f99;
 }
 
-#outputText {
+.button-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
   margin-top: 1rem;
-  background: #eee;
-  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button-row button {
+  flex: 1 1 200px;
+}
+
+.output-trigram-wrapper {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.output-trigram-wrapper .half {
+  flex: 1 1 45%;
+  min-width: 300px;
+}
+
+.trigram-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  background: #f9f9f9;
+  margin-top: 1rem;
 }
 
 table {
@@ -61,25 +89,6 @@ th {
   background-color: #f0f0f0;
 }
 
-.button-row {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.button-row button {
-  flex: 1;
-}
-
-.trigram-container {
-  max-height: 300px; /* Höhe des sichtbaren Fensters */
-  overflow-y: auto;  /* vertikales Scrollen aktivieren */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #f9f9f9;
-  margin-top: 1rem;
-}
-
 .highlight {
   background-color: #ffeaa7;
 }
@@ -94,4 +103,19 @@ th {
   font-size: 1em;
   line-height: 1.4;
   display: block;
+}
+
+/* Responsive: Untereinander bei kleinen Bildschirmen */
+@media (max-width: 768px) {
+  .output-trigram-wrapper {
+    flex-direction: column;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .button-row button {
+    width: 100%;
+  }
 }
