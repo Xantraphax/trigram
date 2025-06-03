@@ -16,16 +16,20 @@
       <textarea id="inputText" placeholder="Gib hier deinen Ausgangstext ein..."></textarea>
     </details>
 
-    <div class="output-trigram-wrapper">
-      <details id="outputTextDetails" class="half">
-        <summary>Ausgabetext</summary>
-        <br>
-        <textarea id="startWords" rows="1" placeholder="Zwei Startwörter"></textarea>
-      </details>
+   <div class="output-trigram-wrapper">
+  <div class="half">
+    <details id="outputTextDetails" class="stretch-details">
+      <summary>Ausgabetext</summary>
+      <div class="details-content">
+        <textarea id="startWords" placeholder="Zwei Startwörter"></textarea>
+      </div>
+    </details>
+  </div>
 
-      <details id="trigrammeDetails" class="half">
-        <summary>Trigramme</summary>
-        <br>
+  <div class="half">
+    <details id="trigrammeDetails" class="stretch-details">
+      <summary>Trigramme</summary>
+      <div class="details-content">
         <div class="trigram-container">
           <table id="trigramTable">
             <thead>
@@ -37,8 +41,11 @@
             <tbody></tbody>
           </table>
         </div>
-      </details>
-    </div>
+      </div>
+    </details>
+  </div>
+</div>
+
 
     <div class="button-row">
       <button id="buildBtn">Trigramme erstellen</button>
