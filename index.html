@@ -12,40 +12,41 @@
 
     <details id="inputTextDetails">
       <summary>Trainingstext</summary>
-      <br>
+      <br />
       <textarea id="inputText" placeholder="Gib hier deinen Ausgangstext ein..."></textarea>
     </details>
 
-   <div class="output-trigram-wrapper">
-  <div class="half">
-    <details id="outputTextDetails" class="stretch-details">
-      <summary>Ausgabetext</summary>
-      <div class="details-content">
-        <textarea id="startWords" placeholder="Zwei Startwörter"></textarea>
+    <div class="output-trigram-wrapper">
+      <!-- Ausgabetext -->
+      <div class="half">
+        <details open>
+          <summary>Ausgabetext</summary>
+          <div class="details-body">
+            <textarea id="startWords" placeholder="Zwei Startwörter"></textarea>
+          </div>
+        </details>
       </div>
-    </details>
-  </div>
 
-  <div class="half">
-    <details id="trigrammeDetails" class="stretch-details">
-      <summary>Trigramme</summary>
-      <div class="details-content">
-        <div class="trigram-container">
-          <table id="trigramTable">
-            <thead>
-              <tr>
-                <th>Präfix (2 Wörter)</th>
-                <th>Mögliche Suffixe</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+      <!-- Trigramme -->
+      <div class="half">
+        <details open>
+          <summary>Trigramme</summary>
+          <div class="details-body trigram-body">
+            <div class="trigram-container">
+              <table id="trigramTable">
+                <thead>
+                  <tr>
+                    <th>Präfix (2 Wörter)</th>
+                    <th>Mögliche Suffixe</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </details>
       </div>
-    </details>
-  </div>
-</div>
-
+    </div>
 
     <div class="button-row">
       <button id="buildBtn">Trigramme erstellen</button>
